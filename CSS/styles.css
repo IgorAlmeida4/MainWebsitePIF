@@ -1,0 +1,129 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #e0f7fa, #f4f4f9); /* Professional gradient background */
+    color: #333; /* Dark gray text */
+}
+
+/* Header and Navigation */
+header {
+    background-color: #00796b; /* Dark teal */
+    color: #fff; /* White text */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: #fff; /* White text */
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+}
+
+header nav ul li a:hover {
+    background-color: #004d40; /* Darker teal */
+    border-radius: 4px;
+}
+
+/* Main Section */
+main {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+main h1 {
+    color: #00796b; /* Dark teal */
+    font-size: 3em; /* Larger title */
+    margin-bottom: 20px;
+}
+
+main p {
+    font-size: 1.2em;
+    color: #555; /* Medium gray text */
+    margin-bottom: 40px;
+}
+
+main img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Footer */
+footer {
+    background-color: #004d40; /* Darker teal */
+    color: #fff; /* White text */
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Login Form */
+.login-form {
+    background-color: #ffffff; /* White background */
+    padding: 30px; /* Increased padding for a bigger box */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 450px; /* Slightly wider form */
+    margin: 0 auto;
+    text-align: left;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.login-form input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #00796b; /* Dark teal */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+}
+
+.login-form button:hover {
+    background-color: #004d40; /* Darker teal */
+}
+
+main p:last-of-type {
+    margin-top: 20px; /* Extra space below "Don't have an account?" message */
+}
