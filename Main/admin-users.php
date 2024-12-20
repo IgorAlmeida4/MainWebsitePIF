@@ -1,9 +1,10 @@
 <?php
-session_start();
 
+session_start();
+global $pdo;
 // Check if the user is logged in and is an admin
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || $_SESSION['role'] !== 'admin') {
-    header('Location: login.php'); // Redirect to login if not admin
+    header('Location: login.php'); // Redirect to log in if not admin
     exit;
 }
 

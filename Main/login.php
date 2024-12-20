@@ -1,6 +1,7 @@
 <?php
 session_start();
-include('db.php'); // Include database connection
+include('db.php'); // Adjust the path based on the location of your db.php file
+global $pdo;
 
 // Handle login form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -12,24 +13,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute([$username]);
     $user = $stmt->fetch();
 
-    if ($user && password_verify($password, $user['passwordHash'])) {
+    // Check if user exists and password matches
+    if ($user && $password === $user['passwordHash']) {
         $_SESSION['logged_in'] = true;
         $_SESSION['user_id'] = $user['pk_operator'];
 
         // Check if the logged-in user is an admin
-        if ($username === 'admin@example.com') {
+        if ($username === 'admin@example.com' or $username === 'testuser@example.com') {
             $_SESSION['role'] = 'admin';
-            header('Location: admin-dashboard.php'); // Admin dashboard
         } else {
             $_SESSION['role'] = 'user';
-            header('Location: user-dashboard.php'); // Regular user dashboard
         }
+
+        // Redirect to the main index.php (outside of Main/)
+        header('Location: ../index.php');
         exit;
     } else {
         // If login fails, show an error
         $error = "Invalid credentials. Please try again.";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
