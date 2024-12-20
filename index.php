@@ -57,7 +57,10 @@ session_start(); // Ensure session is started
     <p>&copy; Igor Almeida 2024-2025 Plants in Focus S.A. All rights reserved.</p>
 </footer>
 
-<script src="JavaScript/js.js"></script>
+<script src="JavaScript/js.js">
+    console.log(navbarItems);  // Check if all navbar items are selected
+    console.log(logo);         // Check if the logo is selected
+</script>
 
 </body>
 </html>

@@ -141,23 +141,23 @@ nav ul li {
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
 }
 
 .navbar-item a {
     text-decoration: none;
     color: black;
     font-size: 16px;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
 }
 
 .navbar-item {
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
 }
 
 @font-face {
     font-family: 'WhiteRabbit';
-    src: url("OtherFiles/fonts/fonts/whitrabt.woff") format('woff');
+    src: url("../OtherFiles/whitrabt.woff") format('woff');
     font-weight: normal;
     font-style: normal;
 }
