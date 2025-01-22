@@ -15,7 +15,7 @@ session_start(); // Ensure session is started
     <nav>
         <ul>
             <li>
-                <img src="OtherFiles/images/images/logo/250/logo_bg_thin.png" alt="Logo" class="navbar-logo">
+                <img src="OtherFiles/images/logo_bg_thin.png" alt="Logo" class="navbar-logo">
             </li>
             <li><a href="index.php">Home</a></li>
 
