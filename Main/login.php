@@ -13,10 +13,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute([$username]);
     $user = $stmt->fetch();
 
-    // Check if user exists and password matches
-    if ($user && $password === $user['passwordHash']) {
+    // In login.php, replace the direct password comparison with:
+    if ($user && password_verify($password, $user['passwordHash'])) {
         $_SESSION['logged_in'] = true;
         $_SESSION['user_id'] = $user['pk_operator'];
+
+        // Add password change functionality
+        function changePassword($userId, $newPassword) {
+            global $pdo;
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            $stmt = $pdo->prepare("UPDATE Operator SET passwordHash = ? WHERE pk_operator = ?");
+            return $stmt->execute([$hashedPassword, $userId]);
+        }
+
+        // When creating new users, hash passwords using:
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Check if the logged-in user is an admin
         if ($username === 'admin@example.com' or $username === 'testuser@example.com') {
@@ -34,6 +45,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+// Add to all protected pages
+function checkAuth() {
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        header('Location: login.php');
+        exit;
+    }
+}
+
+// Add session timeout
+function updateSessionTimeout() {
+    if (isset($_SESSION['LAST_ACTIVITY']) &&
+        (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+        session_unset();
+        session_destroy();
+        header('Location: login.php');
+        exit;
+    }
+    $_SESSION['LAST_ACTIVITY'] = time();
+}
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <button type="submit">Login</button>
 
-        <?php if (isset($error)) { echo "<p class='error'>$error</p>"; } ?>
+        <?php if (isset($error)) {
+            echo "<p class='error'>$error</p>";
+        } ?>
     </form>
 
     <br>

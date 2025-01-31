@@ -161,3 +161,34 @@ nav ul li {
     font-weight: normal;
     font-style: normal;
 }
+
+/* Add responsive design for 1080p */
+@media screen and (min-width: 1920px) {
+    main {
+        max-width: 1920px;
+        margin: 0 auto;
+    }
+    .container {
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+}
+
+/* Add chart styling */
+.metrics-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}

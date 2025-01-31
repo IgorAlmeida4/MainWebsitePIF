@@ -9,15 +9,10 @@ INSERT INTO Operator (emailAddress, firstname, lastname, passwordHash) VALUES
 ('jane.smith@example.com', 'Jane', 'Smith', '$2y$10$N.HNCZIyOMQRHXrbNr0mIuVQiMZvmzwEaIJg2MSyPGi/b4SW5z4CC'),
 ('hans.mueller@example.com', 'Hans', 'Mueller', '$2y$10$N.HNCZIyOMQRHXrbNr0mIuVQiMZvmzwEaIJg2MSyPGi/b4SW5z4CC');
 
-/*
-
-testing the pages with the following users
 
 INSERT INTO Operator (emailAddress, firstname, lastname, passwordHash)
 VALUES ('testuser@example.com', 'Test', 'User', 'testpassword');
 
-
-*/
 -- Populate plant table
 INSERT INTO PlantVariety (botanicalName, commonName, ambientBrightnessThreshold, soilMoistureThreshold, airTemperatureOptimal, airHumidityOptimal) VALUES
 ('Monstera deliciosa', 'Monstera', 180, 60, 24, 60),
