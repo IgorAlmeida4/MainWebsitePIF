@@ -16,12 +16,12 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || $_SESSI
 <div class="admin-controls">
     <section class="user-management">
         <h2>User Management</h2>
-        <a href="manage-users.php">Manage Users</a>
+        <a href="../Main/manage-users.php">Manage Users</a>
     </section>
 
     <section class="node-management">
         <h2>Node Management</h2>
-        <a href="manage-nodes.php">Manage Nodes</a>
+        <a href="../Main/manage-nodes.php">Manage Nodes</a>
     </section>
 
     <section class="plant-management">

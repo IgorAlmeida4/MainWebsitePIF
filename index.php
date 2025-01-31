@@ -26,7 +26,7 @@ session_start();
                     <!-- Conditional Display for Admin or User Dashboard -->
                     <?php if ($_SESSION['role'] === 'admin'): ?>
                         <!-- Admin-specific dashboard link -->
-                        <li><a href="Main/admin-dashboard.php">Admin Dashboard</a></li>
+                        <li><a href="Not Used/admin-dashboard.php">Admin Dashboard</a></li>
             <li><a href="Main/metrics.php">Metrics</a></li>
             <li><a href="Main/tasks.php">Tasks</a></li>
                     <?php else: ?>

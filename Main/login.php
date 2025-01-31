@@ -1,7 +1,33 @@
 <?php
 session_start();
-include('db.php'); // Adjust the path based on the location of your db.php file
+include('db.php');
 global $pdo;
+
+// Move functions outside of the POST handling
+function changePassword($userId, $newPassword) {
+    global $pdo;
+    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    $stmt = $pdo->prepare("UPDATE Operator SET passwordHash = ? WHERE pk_operator = ?");
+    return $stmt->execute([$hashedPassword, $userId]);
+}
+
+function checkAuth() {
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        header('Location: login.php');
+        exit;
+    }
+}
+
+function updateSessionTimeout() {
+    if (isset($_SESSION['LAST_ACTIVITY']) &&
+        (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+        session_unset();
+        session_destroy();
+        header('Location: login.php');
+        exit;
+    }
+    $_SESSION['LAST_ACTIVITY'] = time();
+}
 
 // Handle login form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -13,56 +39,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute([$username]);
     $user = $stmt->fetch();
 
-    // In login.php, replace the direct password comparison with:
     if ($user && password_verify($password, $user['passwordHash'])) {
         $_SESSION['logged_in'] = true;
         $_SESSION['user_id'] = $user['pk_operator'];
 
-        // Add password change functionality
-        function changePassword($userId, $newPassword) {
-            global $pdo;
-            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare("UPDATE Operator SET passwordHash = ? WHERE pk_operator = ?");
-            return $stmt->execute([$hashedPassword, $userId]);
-        }
-
-        // When creating new users, hash passwords using:
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
         // Check if the logged-in user is an admin
-        if ($username === 'admin@example.com' or $username === 'testuser@example.com') {
+        if ($username === 'admin@example.com' || $username === 'testuser@example.com') {
             $_SESSION['role'] = 'admin';
         } else {
             $_SESSION['role'] = 'user';
         }
 
-        // Redirect to the main index.php (outside of Main/)
+        $_SESSION['LAST_ACTIVITY'] = time(); // Initialize session timeout
         header('Location: ../index.php');
         exit;
     } else {
-        // If login fails, show an error
         $error = "Invalid credentials. Please try again.";
     }
-}
-
-// Add to all protected pages
-function checkAuth() {
-    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-        header('Location: login.php');
-        exit;
-    }
-}
-
-// Add session timeout
-function updateSessionTimeout() {
-    if (isset($_SESSION['LAST_ACTIVITY']) &&
-        (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
-        session_unset();
-        session_destroy();
-        header('Location: login.php');
-        exit;
-    }
-    $_SESSION['LAST_ACTIVITY'] = time();
 }
 ?>
 

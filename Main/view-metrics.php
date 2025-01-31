@@ -1,6 +1,30 @@
 <?php
 session_start();
-include('db.php');
+require_once 'db.php';
+
+function getLatestMeasurements($nodeId) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        SELECT * FROM Measurement 
+        WHERE fk_node_isRecorded = ? 
+        ORDER BY recordDateTime DESC 
+        LIMIT 24
+    ");
+    $stmt->execute([$nodeId]);
+    return $stmt->fetchAll();
+}
+
+function getNodeInfo($nodeId) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        SELECT n.*, pv.* 
+        FROM Node n 
+        LEFT JOIN PlantVariety pv ON n.fk_plantVariety_contains = pv.pk_plantVariety 
+        WHERE n.pk_node = ?
+    ");
+    $stmt->execute([$nodeId]);
+    return $stmt->fetch();
+}
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -24,4 +48,4 @@ include('db.php');
                 });
         }, 30000); // Updates every 30 seconds
     }
-</script>
+</script>>
